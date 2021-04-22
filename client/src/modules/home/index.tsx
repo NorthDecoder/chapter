@@ -42,21 +42,19 @@ const Home: React.FC = () => {
         {!error && (
           <ProgressCardContent loading={loading}>
             <div className={styles.grid}>
-              {data?.chapters.map(chapter => (
-                <>
-                  <Card className={styles.gridItem}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {chapter.name}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      {chapter.description}
-                    </Typography>
-                  </Card>
-                </>
+              {data?.chapters.map((chapter) => (
+                <Card key={chapter.id} className={styles.gridItem}>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {chapter.name}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {chapter.description}
+                  </Typography>
+                </Card>
               ))}
             </div>
           </ProgressCardContent>
