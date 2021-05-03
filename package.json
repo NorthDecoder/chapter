@@ -1,6 +1,6 @@
 {
   "name": "chapter",
-  "version": "Q2-2021.01",
+  "version": "0.0.2",
   "description": "A self-hosted event management tool for nonprofits",
   "main": "server/index.js",
   "directories": {
