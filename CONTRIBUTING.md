@@ -360,6 +360,7 @@ Ensure the Docker tools are installed:
 Make sure _IS_DOCKER=TRUE_ is set in [_.env_](#env-configuration-file).
 
 > ( Hint: use this [gist](https://gist.github.com/NorthDecoder/b004064b9c8ca8b3f17d27e23ae4a1ba) to capture the entire required sequence for the next step )
+
 Run _Docker Compose_ `docker-compose up` from the root code directory and wait for the successful output as shown in the following example.
 > Note: This could take minutes for each line to appear.
 
