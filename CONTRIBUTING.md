@@ -1,21 +1,28 @@
 **Table of Contents**
 
-* [Contribution Guidelines](#contribution-guidelines)
-* [Contributing Code](#contributing-code)
-  * [Using GitPod](#using-gitpod)
-  * [Using a Traditional Dev Environment](#using-a-traditional-dev-environment)
-* [Running the Application](#running-the-application)
-* [Frequently Asked Questions](#frequently-asked-questions)
-* [Server-side Technical Documentation](#server-side-technical-documentation)
-  * [API Specification](#api-specification)
-  * [.env Configuration File](#env-configuration-file)
-  * [Database](#database)
-    * [Schema](#schema)
-    * [Username and Password](#username-and-password)
-    * [Host and Port](#host-and-port)
-    * [Admin Tools](#admin-tools)
-    * [Using TypeORM and NPM](#using-typeorm-and-npm)
-* [Troubleshooting](#troubleshooting)
+- [Contribution Guidelines](#contribution-guidelines)
+- [Contributing Code](#contributing-code)
+  - [Using GitPod](#using-gitpod)
+  - [Using a Traditional Dev Environment](#using-a-traditional-dev-environment)
+- [Running the Application](#running-the-application)
+  - [Docker Mode](#docker-mode)
+  - [Manual Mode](#manual-mode)
+- [Frequently Asked Questions](#frequently-asked-questions)
+- [Server-side Technical Documentation](#server-side-technical-documentation)
+  - [API Specification](#api-specification)
+  - [.env Configuration File](#env-configuration-file)
+  - [Database](#database)
+    - [Schema](#schema)
+    - [Username and Password](#username-and-password)
+    - [Host and Port](#host-and-port)
+    - [Admin Tools](#admin-tools)
+    - [Using TypeORM and NPM](#using-typeorm-and-npm)
+      - [Initializing the Database](#initializing-the-database)
+      - [Creating a New Model / Entity](#creating-a-new-model--entity)
+      - [Creating a Migration](#creating-a-migration)
+      - [Running Migrations and Checking They Were Run](#running-migrations-and-checking-they-were-run)
+- [Running Remotely](#running-remotely)
+- [Troubleshooting](#troubleshooting)
     
 # Contribution Guidelines
 
@@ -200,11 +207,13 @@ You are almost ready to make changes to files, but before that you should **alwa
         modified:   README.md
         ...
 
-5. Test your code **Always!** 
+5. Always Run Code Quality Tools 
 
-    * If you started the application using the _Docker Mode_, then tests are run using `NODE_ENV=test docker-compose exec app npm run test` OR if you want to use the "watch" mode run `NODE_ENV=test docker-compose exec app npm run test:watch`
-    * If you started the application using the _Manual Mode_ (without Docker), then tests are run using `npm run test` OR if you want to use the "watch" mode run `npm run test:watch`
+    Verify all automated code quality checks will pass before submitting a pull request because PRs with failures will not be merged.
 
+    * When using _Docker Mode_, run `NODE_ENV=test docker-compose exec app npm run lint-and-test` OR `NODE_ENV=test docker-compose exec app npm run test:watch` to start "watch" mode.
+    * When using _Manual Mode_, run `npm run lint-and-test` OR `npm run test:watch` to start "watch" mode.
+ 
 6. Stage the changes and make a commit
 
     In this step, you should only mark files that you have edited or added yourself. You can perform a reset and resolve files that you did not intend to change if needed.
@@ -333,6 +342,7 @@ Based on your experience or preference, decide between the two options:
 * _Docker Mode_: typically easier if you just want to start the application for the first time or don't want to run a local PostgreSQL database on your host computer. It will take longer to "boot up" the container than manual-mode and can be slow to reload some types of code changes.  
 * _Manual Mode_: more of a "hands-on" method, is more lightweight in that it's faster to "boot" and faster to refresh for some code changes, requires more knowledge of running PostgreSQL and configuring localhost services to play nice with the code.
 
+See [Running Remotely](#running-remotely) if you are using a remote server.
 ## Docker Mode
 
 **Prerequisite**: [Docker](https://docs.docker.com/get-docker/) must exist on your system:
@@ -348,6 +358,8 @@ Ensure the Docker tools are installed:
 * _Docker Compose_ using `docker-compose --version` and it should output something like _docker-compose version 1.28.5..._
 
 Make sure _IS_DOCKER=TRUE_ is set in [_.env_](#env-configuration-file).
+
+> ( Hint: use this [gist](https://gist.github.com/NorthDecoder/b004064b9c8ca8b3f17d27e23ae4a1ba) to capture the entire required sequence for the next step )
 
 Run _Docker Compose_ `docker-compose up` from the root code directory and wait for the successful output as shown in the following example.
 > Note: This could take minutes for each line to appear.
@@ -533,6 +545,11 @@ it should ouput something like
  [X] MigrationName1575633316367
 ```
 
+# Running Remotely
+
+When not running locally, the client needs to be passed the server's location.  This can be done by changing your [_.env_](#env-configuration-file) file to include `NEXT_PUBLIC_APOLLO_SERVER=<http://address.of.graphql.server>`.  For example, if you started **_Chapter_** with `npm run both` and hosted it on `http://demo.chapter.org` then the address will be `http://demo.chapter.org:5000`.
+
 # Troubleshooting
 
 Visit our [chat](https://chat.freecodecamp.org/channel/chapter) for assistance. Or, [create an issue for new bugs or topics](https://github.com/freeCodeCamp/chapter/issues).
+
